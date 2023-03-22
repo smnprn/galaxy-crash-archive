@@ -7,7 +7,12 @@ public class Projectile extends Movable {
         super(x, y, height, width);
     }
 
-    public void fire() {
+    public void fire(float resetX) {
         velocity.y = 1100;
+
+        if (position.y > Gdx.graphics.getHeight()) {
+            position.y = 180;
+            position.x = resetX;
+        }
     }
 }

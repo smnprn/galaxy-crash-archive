@@ -24,9 +24,4 @@ public class Spaceship extends Movable {
             position.x = Gdx.input.getX() - 50;
         }
     }
-
-    public void onClick() {
-        projectile.fire();
-        System.out.println("boom");
-    }
 }

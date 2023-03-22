@@ -33,6 +33,7 @@ public class GameRenderer {
         batcher.begin();
         batcher.draw(AssetLoader.background, 0, 0);
         batcher.draw(AssetLoader.userShip, world.getUserSpaceship().getX(), world.getUserSpaceship().getY());
+        world.getProjectile().fire(world.getUserSpaceship().getX() + 65);
         batcher.draw(AssetLoader.projectileBase, world.getProjectile().getX(), world.getProjectile().getY());
         batcher.end();
     }
