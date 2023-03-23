@@ -1,5 +1,6 @@
 package com.smnrpn.galaxycrash;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -38,15 +39,25 @@ public class GameRenderer {
         batcher.begin();
         batcher.draw(AssetLoader.background, bottomBackground.getPosition().x, bottomBackground.getPosition().y);
         batcher.draw(AssetLoader.background, topBackground.getPosition().x, topBackground.getPosition().y);
+
+        if (world.getHpHandler().getFirstHeart().isLiveStatus()) {
+            batcher.draw(AssetLoader.heart, 550, Gdx.graphics.getHeight() - 80);
+        }
+
+        if (world.getHpHandler().getSecondHeart().isLiveStatus()) {
+            batcher.draw(AssetLoader.heart, 550 + 32 + 10, Gdx.graphics.getHeight() - 80);
+        }
+
+        if (world.getHpHandler().getThirdHeart().isLiveStatus()) {
+            batcher.draw(AssetLoader.heart, 550 + 32 + 32 + 20, Gdx.graphics.getHeight() - 80);
+        }
+
         batcher.draw(AssetLoader.userShip, world.getUserSpaceship().getX(), world.getUserSpaceship().getY());
         for (Projectile projectile : world.getAmmunition()) {
             projectile.fire(world.getUserSpaceship().getX() + 65);
             batcher.draw(AssetLoader.projectileBase, projectile.getX(), projectile.getY());
         }
-        /*
-        world.getProjectile().fire(world.getUserSpaceship().getX() + 65);
-        batcher.draw(AssetLoader.projectileBase, world.getProjectile().getX(), world.getProjectile().getY());
-         */
+
         batcher.end();
     }
 

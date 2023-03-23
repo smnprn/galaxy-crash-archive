@@ -9,12 +9,14 @@ public class AssetLoader {
     public static Texture background;
     public static Texture userShip;
     public static Texture explosion;
+    public static Texture heart;
     public static TextureRegion projectileBase;
 
     public void loadImages() {
         background = new Texture(Gdx.files.internal("space-backgrounds/bg_big.png"));
         userShip = new Texture(Gdx.files.internal("ships/user-ships/13B_custom.png"));
         explosion = new Texture(Gdx.files.internal("fire/explosions.png"));
+        heart = new Texture(Gdx.files.internal("hearts/heart_32x32.png"));
 
         projectileBase = new TextureRegion(explosion, 1, 43, 30, 30);
     }
