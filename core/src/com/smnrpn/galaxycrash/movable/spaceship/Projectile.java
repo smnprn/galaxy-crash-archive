@@ -1,6 +1,7 @@
-package com.smnrpn.galaxycrash;
+package com.smnrpn.galaxycrash.movable.spaceship;
 
 import com.badlogic.gdx.Gdx;
+import com.smnrpn.galaxycrash.movable.Movable;
 
 public class Projectile extends Movable {
     public Projectile(float x, float y, int height, int width) {

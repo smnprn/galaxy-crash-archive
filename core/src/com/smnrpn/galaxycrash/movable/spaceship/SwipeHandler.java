@@ -1,4 +1,4 @@
-package com.smnrpn.galaxycrash;
+package com.smnrpn.galaxycrash.movable.spaceship;
 
 import com.badlogic.gdx.Gdx;
 

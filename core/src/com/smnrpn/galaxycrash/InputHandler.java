@@ -1,7 +1,7 @@
 package com.smnrpn.galaxycrash;
 
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
+import com.smnrpn.galaxycrash.movable.spaceship.Spaceship;
 
 public class InputHandler implements InputProcessor {
     private Spaceship userSpaceship;

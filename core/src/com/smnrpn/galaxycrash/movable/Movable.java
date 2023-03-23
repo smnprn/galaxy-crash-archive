@@ -1,4 +1,4 @@
-package com.smnrpn.galaxycrash;
+package com.smnrpn.galaxycrash.movable;
 
 import com.badlogic.gdx.math.Vector2;
 
