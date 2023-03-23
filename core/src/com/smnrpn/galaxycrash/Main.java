@@ -9,6 +9,7 @@ public class Main extends Game {
     @Override
 	public void create () {
 		assetLoader.loadImages();
+        assetLoader.loadSound();
         setScreen(new GameScreen());
 	}
 
