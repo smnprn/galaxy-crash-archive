@@ -9,30 +9,30 @@ import com.smnrpn.galaxycrash.scrollable.ScrollHandler;
 import java.util.ArrayList;
 
 public class GameWorld {
-    private Spaceship userSpaceship;
+    private final Spaceship userSpaceship;
     private Projectile projectile;
-    private ArrayList<Projectile> ammunition;
-    private int ammunitionQuantity;
-    private HPHandler hpHandler;
-    private ScrollHandler scroller;
+    private final ArrayList<Projectile> ammunition;
+    private final HPHandler hpHandler;
+    private final ScrollHandler scroller;
 
     public GameWorld() {
         scroller = new ScrollHandler(0);
         hpHandler = new HPHandler();
 
-        ammunitionQuantity = 3;
+        int ammunitionQuantity = 3; // Set how many projectiles the ship fires each round
         ammunition = new ArrayList<>();
-        for (int i = 1; i <= ammunitionQuantity; i++) {
-            projectile = new Projectile((Gdx.graphics.getWidth()/2) - (30/2), 180, 30,30);
+        for (int i = 1; i <= ammunitionQuantity; i++) { // Add projectiles to the ammunition ArrayList
+            projectile = new Projectile((Gdx.graphics.getWidth()/2F) - (30/2F), 180, 30,30);
             ammunition.add(projectile);
         }
-        System.out.println(ammunition.size());
-        userSpaceship = new Spaceship((Gdx.graphics.getWidth()/2) - (162/2), 80, 100, 162, projectile);
+
+        userSpaceship = new Spaceship((Gdx.graphics.getWidth()/2F) - (162/2F), 80, 100, 162, projectile);
     }
 
     public void update(float delta) {
         userSpaceship.update(delta);
 
+        // The following loop make the ship fire projectiles at different times
         for (Projectile projectile : ammunition) {
             projectile.update(delta);
             delta += 0.01F;

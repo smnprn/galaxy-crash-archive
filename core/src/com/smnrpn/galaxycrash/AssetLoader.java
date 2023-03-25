@@ -34,5 +34,8 @@ public class AssetLoader {
         background.dispose();
         userShip.dispose();
         explosion.dispose();
+        heart.dispose();
+
+        backgroundMusic.dispose();
     }
 }

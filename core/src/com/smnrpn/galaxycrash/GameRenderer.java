@@ -10,7 +10,7 @@ import com.smnrpn.galaxycrash.scrollable.Backgound;
 
 public class GameRenderer {
     private GameWorld world;
-    private OrthographicCamera camera;
+    public static OrthographicCamera camera;
     private Viewport viewport;
     private SpriteBatch batcher;
     private Backgound bottomBackground;
@@ -37,28 +37,46 @@ public class GameRenderer {
 
     public void render(float runTime) {
         batcher.begin();
+
+        drawBackground();
+
+        drawHPBar();
+
+        drawUserShip();
+
+        drawProjectiles();
+
+        batcher.end();
+    }
+
+    public void drawBackground() {
         batcher.draw(AssetLoader.background, bottomBackground.getPosition().x, bottomBackground.getPosition().y);
         batcher.draw(AssetLoader.background, topBackground.getPosition().x, topBackground.getPosition().y);
+    }
 
-        if (world.getHpHandler().getFirstHeart().isLiveStatus()) {
+    public void drawHPBar() {
+        if (world.getHpHandler().getFirstHeart().isLive()) {
             batcher.draw(AssetLoader.heart, 550, Gdx.graphics.getHeight() - 80);
         }
 
-        if (world.getHpHandler().getSecondHeart().isLiveStatus()) {
+        if (world.getHpHandler().getSecondHeart().isLive()) {
             batcher.draw(AssetLoader.heart, 550 + 32 + 10, Gdx.graphics.getHeight() - 80);
         }
 
-        if (world.getHpHandler().getThirdHeart().isLiveStatus()) {
+        if (world.getHpHandler().getThirdHeart().isLive()) {
             batcher.draw(AssetLoader.heart, 550 + 32 + 32 + 20, Gdx.graphics.getHeight() - 80);
         }
+    }
 
+    public void drawUserShip() {
         batcher.draw(AssetLoader.userShip, world.getUserSpaceship().getX(), world.getUserSpaceship().getY());
+    }
+
+    public void drawProjectiles() {
         for (Projectile projectile : world.getAmmunition()) {
             projectile.fire(world.getUserSpaceship().getX() + 65);
             batcher.draw(AssetLoader.projectileBase, projectile.getX(), projectile.getY());
         }
-
-        batcher.end();
     }
 
     public Viewport getViewport() {

@@ -6,8 +6,8 @@ public class ScrollHandler {
 
     public static final int SCROLL_SPEED = -50;
     public ScrollHandler(float yPos) {
-        bottomBackground = new Backgound(0, 0, 800, 800, SCROLL_SPEED);
-        topBackground = new Backgound(0, -800, 800, 800, SCROLL_SPEED);
+        bottomBackground = new Backgound(0, 0, 1600, 800, SCROLL_SPEED);
+        topBackground = new Backgound(0, -1600, 1600, 800, SCROLL_SPEED);
     }
 
     public void update(float delta) {

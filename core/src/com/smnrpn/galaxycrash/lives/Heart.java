@@ -11,7 +11,7 @@ public class Heart {
         heartStatus = false;
     }
 
-    public boolean isLiveStatus() {
+    public boolean isLive() {
         return heartStatus;
     }
 }
