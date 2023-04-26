@@ -6,12 +6,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import org.w3c.dom.Text;
+
 
 public class AssetLoader {
     public static Texture background;
     public static Texture userShip;
     public static Texture explosion;
     public static Texture heart;
+    public static Texture enemy;
     public static TextureRegion projectileBase;
 
     public static Music backgroundMusic;
@@ -23,6 +26,7 @@ public class AssetLoader {
         userShip = new Texture(Gdx.files.internal("ships/user-ships/13B_custom.png"));
         explosion = new Texture(Gdx.files.internal("fire/explosions.png"));
         heart = new Texture(Gdx.files.internal("hearts/heart_32x32.png"));
+        enemy = new Texture(Gdx.files.internal("ships/enemy-ships/Alien-Bomber.png"));
 
         projectileBase = new TextureRegion(explosion, 1, 43, 30, 30);
     }

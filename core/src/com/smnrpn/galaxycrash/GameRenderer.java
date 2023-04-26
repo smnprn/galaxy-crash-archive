@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.smnrpn.galaxycrash.movable.spaceship.Projectile;
+import com.smnrpn.galaxycrash.hp.HPHandler;
+import com.smnrpn.galaxycrash.hp.Heart;
+import com.smnrpn.galaxycrash.moving.enemies.Enemy;
+import com.smnrpn.galaxycrash.moving.spaceship.Projectile;
 import com.smnrpn.galaxycrash.score.Score;
 import com.smnrpn.galaxycrash.scrollable.Backgound;
 
@@ -19,6 +22,11 @@ public class GameRenderer {
     private Backgound bottomBackground;
     private Backgound topBackground;
 
+    HPHandler hpHandler;
+    Heart firstHeart;
+    Heart secondHeart;
+    Heart thirdHeart;
+
     private int gameHeight;
     private int gameWidth;
 
@@ -29,6 +37,11 @@ public class GameRenderer {
         this.world = world;
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
+
+        hpHandler = world.getHpHandler();
+        firstHeart = hpHandler.getFirstHeart();
+        secondHeart = hpHandler.getSecondHeart();
+        thirdHeart = hpHandler.getThirdHeart();
 
         bottomBackground = world.getScroller().getBottomBackground();
         topBackground = world.getScroller().getTopBackground();
@@ -58,6 +71,8 @@ public class GameRenderer {
 
         drawProjectiles();
 
+        drawEnemy();
+
         drawScore();
 
         batcher.end();
@@ -69,16 +84,16 @@ public class GameRenderer {
     }
 
     public void drawHPBar() {
-        if (world.getHpHandler().getFirstHeart().isLive()) {
-            batcher.draw(AssetLoader.heart, 550, Gdx.graphics.getHeight() - 930);
+        if (firstHeart.isLive()) {
+            batcher.draw(AssetLoader.heart, Gdx.graphics.getWidth() - 160, Gdx.graphics.getHeight() - 80);
         }
 
-        if (world.getHpHandler().getSecondHeart().isLive()) {
-            batcher.draw(AssetLoader.heart, 550 + 32 + 10, Gdx.graphics.getHeight() - 930);
+        if (secondHeart.isLive()) {
+            batcher.draw(AssetLoader.heart, Gdx.graphics.getWidth() - 118, Gdx.graphics.getHeight() - 80);
         }
 
-        if (world.getHpHandler().getThirdHeart().isLive()) {
-            batcher.draw(AssetLoader.heart, 550 + 32 + 32 + 20, Gdx.graphics.getHeight() - 930);
+        if (thirdHeart.isLive()) {
+            batcher.draw(AssetLoader.heart, Gdx.graphics.getWidth() - 76, Gdx.graphics.getHeight() - 80);
         }
     }
 
@@ -95,7 +110,13 @@ public class GameRenderer {
     }
 
     public void drawScore() {
-        AssetLoader.score.draw(batcher, scoreCreator(), Gdx.graphics.getWidth() - 666, Gdx.graphics.getHeight() - 900);
+        AssetLoader.score.draw(batcher, scoreCreator(), 45, Gdx.graphics.getHeight() - 50);
+    }
+
+    public void drawEnemy() {
+        for (Enemy enemy : world.getEnemyGroup().getGroup()) {
+            batcher.draw(AssetLoader.enemy, enemy.getX(), enemy.getY());
+        }
     }
 
     public String scoreCreator() {

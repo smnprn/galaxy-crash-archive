@@ -2,7 +2,7 @@ package com.smnrpn.galaxycrash.scrollable;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Scrollable {
+public abstract class Scrollable {
     protected Vector2 position;
     protected Vector2 velocity;
     protected int height;

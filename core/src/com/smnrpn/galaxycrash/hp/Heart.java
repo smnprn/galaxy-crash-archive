@@ -1,4 +1,4 @@
-package com.smnrpn.galaxycrash.lives;
+package com.smnrpn.galaxycrash.hp;
 
 public class Heart {
 

@@ -24,14 +24,16 @@ public class ScrollHandler {
                 ScrollHandlerConstants.BOTTOM_BG_Y,
                 ScrollHandlerConstants.BACKGORUND_HEIGHT,
                 ScrollHandlerConstants.BACKGORUND_WIDTH,
-                ScrollHandlerConstants.BACKGROUND_SCROLL_SPEED);
+                ScrollHandlerConstants.BACKGROUND_SCROLL_SPEED
+        );
 
         topBackground = new Backgound(
                 ScrollHandlerConstants.TOP_BG_X,
                 ScrollHandlerConstants.TOP_BG_Y,
                 ScrollHandlerConstants.BACKGORUND_HEIGHT,
                 ScrollHandlerConstants.BACKGORUND_WIDTH,
-                ScrollHandlerConstants.BACKGROUND_SCROLL_SPEED);
+                ScrollHandlerConstants.BACKGROUND_SCROLL_SPEED
+        );
     }
 
     public void update(float delta) {

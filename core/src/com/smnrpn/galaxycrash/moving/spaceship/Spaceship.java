@@ -1,13 +1,11 @@
-package com.smnrpn.galaxycrash.movable.spaceship;
+package com.smnrpn.galaxycrash.moving.spaceship;
 
 import com.badlogic.gdx.Gdx;
-import com.smnrpn.galaxycrash.movable.Movable;
+import com.smnrpn.galaxycrash.moving.Moving;
 
 import java.util.ArrayList;
 
-import static com.smnrpn.galaxycrash.GameRenderer.camera;
-
-public class Spaceship extends Movable {
+public class Spaceship extends Moving {
 
     public static class SpaceshipConstants {
         private static final int PROJECTILE_STARTING_Y = 180;

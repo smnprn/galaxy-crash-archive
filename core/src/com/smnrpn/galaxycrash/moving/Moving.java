@@ -1,20 +1,25 @@
-package com.smnrpn.galaxycrash.movable;
+package com.smnrpn.galaxycrash.moving;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Movable {
+public abstract class Moving {
     protected Vector2 position;
     protected Vector2 velocity;
     protected Vector2 acceleration;
     protected int height;
     protected int width;
 
-    public Movable(float x, float y, int height, int width) {
+    public Moving(float x, float y, int height, int width) {
         this.height = height;
         this.width = width;
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
         acceleration = new Vector2(0, 0);
+    }
+
+    public Moving(int height, int width) {
+        this.height = height;
+        this.width = width;
     }
 
     public void update(float delta) {

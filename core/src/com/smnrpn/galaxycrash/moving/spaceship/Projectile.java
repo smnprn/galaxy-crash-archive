@@ -1,9 +1,9 @@
-package com.smnrpn.galaxycrash.movable.spaceship;
+package com.smnrpn.galaxycrash.moving.spaceship;
 
 import com.badlogic.gdx.Gdx;
-import com.smnrpn.galaxycrash.movable.Movable;
+import com.smnrpn.galaxycrash.moving.Moving;
 
-public class Projectile extends Movable {
+public class Projectile extends Moving {
 
     public static class ProjectileConstants {
         public static final int VELOCITY = 1100;

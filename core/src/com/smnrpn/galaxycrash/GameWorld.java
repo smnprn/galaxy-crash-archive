@@ -1,17 +1,18 @@
 package com.smnrpn.galaxycrash;
 
 import com.badlogic.gdx.Gdx;
-import com.smnrpn.galaxycrash.lives.HPHandler;
-import com.smnrpn.galaxycrash.movable.spaceship.Projectile;
-import com.smnrpn.galaxycrash.movable.spaceship.Spaceship;
+import com.badlogic.gdx.math.Vector2;
+import com.smnrpn.galaxycrash.hp.HPHandler;
+import com.smnrpn.galaxycrash.moving.enemies.Enemy;
+import com.smnrpn.galaxycrash.moving.enemies.EnemyGroup;
+import com.smnrpn.galaxycrash.moving.spaceship.Projectile;
+import com.smnrpn.galaxycrash.moving.spaceship.Spaceship;
 import com.smnrpn.galaxycrash.scrollable.ScrollHandler;
-
-import javax.sound.sampled.Port;
-import java.util.ArrayList;
-import java.util.Timer;
 
 public class GameWorld {
     private final Spaceship userSpaceship;
+    //private final Enemy enemy;
+    private final EnemyGroup enemyGroup;
     private final HPHandler hpHandler;
     private final ScrollHandler scroller;
 
@@ -19,6 +20,7 @@ public class GameWorld {
         scroller = new ScrollHandler(0);
         hpHandler = new HPHandler();
         userSpaceship = new Spaceship((Gdx.graphics.getWidth()/2F) - (162/2F), 120, 100, 162);
+        enemyGroup = new EnemyGroup(50);
     }
 
     public void update(float delta) {
@@ -26,6 +28,10 @@ public class GameWorld {
 
         for (Projectile projectile : userSpaceship.getAmmunition()) {
             projectile.update(delta);
+        }
+
+        for (Enemy enemy : enemyGroup.getGroup()) {
+            enemy.update(delta);
         }
 
         scroller.update(delta);
@@ -41,5 +47,14 @@ public class GameWorld {
 
     public HPHandler getHpHandler() {
         return hpHandler;
+    }
+/*
+    public Enemy getEnemy() {
+        return enemy;
+    }
+ */
+
+    public EnemyGroup getEnemyGroup() {
+        return enemyGroup;
     }
 }
