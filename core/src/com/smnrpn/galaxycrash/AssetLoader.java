@@ -3,6 +3,7 @@ package com.smnrpn.galaxycrash;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
@@ -14,6 +15,8 @@ public class AssetLoader {
     public static TextureRegion projectileBase;
 
     public static Music backgroundMusic;
+
+    public static BitmapFont score;
 
     public void loadImages() {
         background = new Texture(Gdx.files.internal("space-backgrounds/bg_big.png"));
@@ -28,6 +31,10 @@ public class AssetLoader {
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/music/placeholder_music.mp3"));
         backgroundMusic.setLooping(true);
         backgroundMusic.play();
+    }
+
+    public void loadFont() {
+        score = new BitmapFont(Gdx.files.internal("font/gameover/72.fnt"), false);
     }
 
     public void dispose() {

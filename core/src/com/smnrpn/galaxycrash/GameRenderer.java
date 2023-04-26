@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.smnrpn.galaxycrash.movable.spaceship.Projectile;
+import com.smnrpn.galaxycrash.score.Score;
 import com.smnrpn.galaxycrash.scrollable.Backgound;
+
+import java.util.Timer;
 
 public class GameRenderer {
     private GameWorld world;
@@ -19,6 +22,9 @@ public class GameRenderer {
     private int gameHeight;
     private int gameWidth;
 
+    private Timer timer;
+    private Score score;
+
     public GameRenderer(GameWorld world, int gameHeight, int gameWidth) {
         this.world = world;
         this.gameHeight = gameHeight;
@@ -26,6 +32,12 @@ public class GameRenderer {
 
         bottomBackground = world.getScroller().getBottomBackground();
         topBackground = world.getScroller().getTopBackground();
+
+        AssetLoader.score.getData().setScale(1.5F);
+
+        timer = new Timer();
+        score = new Score();
+        timer.schedule(score, 0, 100);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, gameWidth, gameHeight);
@@ -46,6 +58,8 @@ public class GameRenderer {
 
         drawProjectiles();
 
+        drawScore();
+
         batcher.end();
     }
 
@@ -56,15 +70,15 @@ public class GameRenderer {
 
     public void drawHPBar() {
         if (world.getHpHandler().getFirstHeart().isLive()) {
-            batcher.draw(AssetLoader.heart, 550, Gdx.graphics.getHeight() - 80);
+            batcher.draw(AssetLoader.heart, 550, Gdx.graphics.getHeight() - 930);
         }
 
         if (world.getHpHandler().getSecondHeart().isLive()) {
-            batcher.draw(AssetLoader.heart, 550 + 32 + 10, Gdx.graphics.getHeight() - 80);
+            batcher.draw(AssetLoader.heart, 550 + 32 + 10, Gdx.graphics.getHeight() - 930);
         }
 
         if (world.getHpHandler().getThirdHeart().isLive()) {
-            batcher.draw(AssetLoader.heart, 550 + 32 + 32 + 20, Gdx.graphics.getHeight() - 80);
+            batcher.draw(AssetLoader.heart, 550 + 32 + 32 + 20, Gdx.graphics.getHeight() - 930);
         }
     }
 
@@ -73,10 +87,31 @@ public class GameRenderer {
     }
 
     public void drawProjectiles() {
-        for (Projectile projectile : world.getAmmunition()) {
-            projectile.fire(world.getUserSpaceship().getX() + 65);
+        world.getUserSpaceship().fire(world.getUserSpaceship().getX() + 65);
+
+        for (Projectile projectile : world.getUserSpaceship().getAmmunition()) {
             batcher.draw(AssetLoader.projectileBase, projectile.getX(), projectile.getY());
         }
+    }
+
+    public void drawScore() {
+        AssetLoader.score.draw(batcher, scoreCreator(), Gdx.graphics.getWidth() - 666, Gdx.graphics.getHeight() - 900);
+    }
+
+    public String scoreCreator() {
+        int scoreLength = String.valueOf(score.getCounter()).length();
+
+        return switch (scoreLength) {
+            case 1 -> "0000000" + score.getCounter();
+            case 2 -> "000000" + score.getCounter();
+            case 3 -> "00000" + score.getCounter();
+            case 4 -> "0000" + score.getCounter();
+            case 5 -> "000" + score.getCounter();
+            case 6 -> "00" + score.getCounter();
+            case 7 -> "0" + score.getCounter();
+            case 8 -> String.valueOf(score.getCounter());
+            default -> "MAX SCORE!!!";
+        };
     }
 
     public Viewport getViewport() {
