@@ -11,8 +11,8 @@ public class EnemyGroup {
     private Random random;
     private int size;
 
-    //private float x;
-    //private float y;
+    private final int SCREEN_WIDTH = Gdx.graphics.getWidth();
+    private final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
 
     public EnemyGroup(int size) {
         this.size = size;
@@ -25,24 +25,34 @@ public class EnemyGroup {
     }
 
     public float generateX() {
-        return random.nextFloat() * (Gdx.graphics.getWidth() - 100);
+        return random.nextFloat() * (SCREEN_WIDTH - 100);
     }
 
     public float generateY() {
-        return (Gdx.graphics.getHeight()/8F) + random.nextFloat() * ((Gdx.graphics.getHeight()/4F) - (Gdx.graphics.getHeight()/8F));
+        return (SCREEN_HEIGHT/6F) + random.nextFloat() * ((SCREEN_HEIGHT/3F) - (SCREEN_HEIGHT/6F));
     }
 
     public void addFirstEnemy() {
         enemyGroup.add(
-                new Enemy(generateX(), Gdx.graphics.getHeight() + 150, 100, 100, new Vector2(0, -250))
+                new Bomber(generateX(), SCREEN_HEIGHT + 150, 100, 100, new Vector2(0, -250))
         );
     }
 
     public void addOtherEnemies() {
         for (int i = 1; i < size; i++) {
-            enemyGroup.add(
-                    new Enemy(generateX(), enemyGroup.get(i - 1).getY() + generateY(), 100, 100, new Vector2(0, -250))
-            );
+            int randomType = random.nextInt(3);
+
+            switch (randomType) {
+                case 0 -> enemyGroup.add(
+                        new Bomber(generateX(), enemyGroup.get(i - 1).getY() + generateY(), 100, 100, new Vector2(0, -250))
+                );
+                case 1 -> enemyGroup.add(
+                        new Scout(generateX(), enemyGroup.get(i - 1).getY() + generateY(), 100, 100, new Vector2(0, -250))
+                );
+                case 2 -> enemyGroup.add(
+                        new Cruiser(generateX(), enemyGroup.get(i - 1).getY() + generateY(), 100, 100, new Vector2(0, -250))
+                );
+            }
         }
     }
 

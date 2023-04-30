@@ -2,6 +2,7 @@ package com.smnrpn.galaxycrash;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -9,6 +10,7 @@ import com.smnrpn.galaxycrash.hp.HPHandler;
 import com.smnrpn.galaxycrash.hp.Heart;
 import com.smnrpn.galaxycrash.moving.enemies.Enemy;
 import com.smnrpn.galaxycrash.moving.spaceship.Projectile;
+import com.smnrpn.galaxycrash.moving.spaceship.Spaceship;
 import com.smnrpn.galaxycrash.score.Score;
 import com.smnrpn.galaxycrash.scrollable.Backgound;
 
@@ -22,10 +24,12 @@ public class GameRenderer {
     private Backgound bottomBackground;
     private Backgound topBackground;
 
-    HPHandler hpHandler;
-    Heart firstHeart;
-    Heart secondHeart;
-    Heart thirdHeart;
+    private Spaceship userSpaceship;
+
+    private HPHandler hpHandler;
+    private Heart firstHeart;
+    private Heart secondHeart;
+    private Heart thirdHeart;
 
     private int gameHeight;
     private int gameWidth;
@@ -37,6 +41,8 @@ public class GameRenderer {
         this.world = world;
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
+
+        userSpaceship = world.getUserSpaceship();
 
         hpHandler = world.getHpHandler();
         firstHeart = hpHandler.getFirstHeart();
@@ -65,13 +71,13 @@ public class GameRenderer {
 
         drawBackground();
 
-        drawHPBar();
-
-        drawUserShip();
+        drawUserShip(runTime);
 
         drawProjectiles();
 
-        drawEnemy();
+        drawEnemy(runTime);
+
+        drawHPBar();
 
         drawScore();
 
@@ -97,14 +103,14 @@ public class GameRenderer {
         }
     }
 
-    public void drawUserShip() {
-        batcher.draw(AssetLoader.userShip, world.getUserSpaceship().getX(), world.getUserSpaceship().getY());
+    public void drawUserShip(float runTime) {
+        batcher.draw((Texture) AssetLoader.userShipAnimation.getKeyFrame(runTime), userSpaceship.getX(), userSpaceship.getY());
     }
 
     public void drawProjectiles() {
-        world.getUserSpaceship().fire(world.getUserSpaceship().getX() + 65);
+        userSpaceship.fire(userSpaceship.getX() + 65);
 
-        for (Projectile projectile : world.getUserSpaceship().getAmmunition()) {
+        for (Projectile projectile : userSpaceship.getAmmunition()) {
             batcher.draw(AssetLoader.projectileBase, projectile.getX(), projectile.getY());
         }
     }
@@ -113,9 +119,13 @@ public class GameRenderer {
         AssetLoader.score.draw(batcher, scoreCreator(), 45, Gdx.graphics.getHeight() - 50);
     }
 
-    public void drawEnemy() {
+    public void drawEnemy(float runTime) {
         for (Enemy enemy : world.getEnemyGroup().getGroup()) {
-            batcher.draw(AssetLoader.enemy, enemy.getX(), enemy.getY());
+            switch (enemy.getType()) {
+                case 0 -> batcher.draw((Texture) AssetLoader.enemyBomberAnimation.getKeyFrame(runTime), enemy.getX(), enemy.getY());
+                case 1 -> batcher.draw((Texture) AssetLoader.enemyScoutAnimation.getKeyFrame(runTime), enemy.getX(), enemy.getY());
+                case 2 -> batcher.draw((Texture) AssetLoader.enemyCruiserAnimation.getKeyFrame(runTime), enemy.getX(), enemy.getY());
+            }
         }
     }
 

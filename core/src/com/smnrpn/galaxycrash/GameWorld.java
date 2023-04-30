@@ -48,11 +48,6 @@ public class GameWorld {
     public HPHandler getHpHandler() {
         return hpHandler;
     }
-/*
-    public Enemy getEnemy() {
-        return enemy;
-    }
- */
 
     public EnemyGroup getEnemyGroup() {
         return enemyGroup;
